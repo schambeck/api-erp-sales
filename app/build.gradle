@@ -1,6 +1,7 @@
 plugins {
     id 'org.springframework.boot' version '2.7.6'
     id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+    id 'org.sonarqube' version '3.5.0.2730'
 }
 
 dependencies {
@@ -18,4 +19,12 @@ dependencies {
     testRuntimeOnly 'com.h2database:h2'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.amqp:spring-rabbit-test'
+}
+
+sonarqube {
+    properties {
+        property "sonar.projectKey", "schambeck_srv-erp-sales"
+        property "sonar.organization", "schambeck"
+        property "sonar.host.url", "https://sonarcloud.io"
+    }
 }
