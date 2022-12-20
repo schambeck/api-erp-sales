@@ -1,0 +1,39 @@
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'jacoco-report-aggregation'
+
+    group 'com.schambeck.erp.sales'
+    version = '1.0.0'
+    sourceCompatibility = '17'
+
+    repositories {
+        mavenCentral()
+    }
+
+    configurations {
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
+    }
+
+    dependencies {
+        compileOnly 'org.projectlombok:lombok:1.18.22'
+        annotationProcessor 'org.projectlombok:lombok:1.18.22'
+        testCompileOnly 'org.projectlombok:lombok:1.18.22'
+        testAnnotationProcessor 'org.projectlombok:lombok:1.18.22'
+        testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+        testImplementation 'org.mockito:mockito-junit-jupiter:3.9.0'
+        testImplementation 'org.hamcrest:hamcrest:2.2'
+        testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+        testImplementation 'nl.jqno.equalsverifier:equalsverifier:3.12.2'
+    }
+
+
+    test {
+        useJUnitPlatform()
+    }
+
+    tasks.named('check') {
+        dependsOn tasks.named('testCodeCoverageReport', JacocoReport)
+    }
+}
