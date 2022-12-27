@@ -1,6 +1,6 @@
 package com.schambeck.erp.sales.app.entrypoint.controller;
 
-import com.schambeck.erp.sales.app.dataprovider.mapper.OrderMapper;
+import com.schambeck.erp.sales.app.entrypoint.controller.mapper.OrderWebMapper;
 import com.schambeck.erp.sales.app.entrypoint.controller.model.OrderWeb;
 import com.schambeck.erp.sales.core.usecase.interactor.CloseOrder;
 import com.schambeck.erp.sales.core.usecase.interactor.CreateOrder;
@@ -21,8 +21,8 @@ public class OrderController {
     private final FindOrder find;
 
     public OrderWeb create(OrderWeb web) {
-        var order = OrderMapper.INSTANCE.toDomain(web);
-        OrderWeb created = OrderMapper.INSTANCE.toWeb(create.execute(order));
+        var order = OrderWebMapper.INSTANCE.toDomain(web);
+        OrderWeb created = OrderWebMapper.INSTANCE.toWeb(create.execute(order));
         log.info("create: {}", created);
         return created;
     }
@@ -33,14 +33,14 @@ public class OrderController {
     }
 
     public OrderWeb findById(UUID id) {
-        OrderWeb web = OrderMapper.INSTANCE.toWeb(find.findById(id));
+        OrderWeb web = OrderWebMapper.INSTANCE.toWeb(find.findById(id));
         log.info("findById: {}", web);
         return web;
     }
 
     public List<OrderWeb> findAll() {
         log.info("before findAll...");
-        List<OrderWeb> webs = OrderMapper.INSTANCE.fromDomain(find.findAll());
+        List<OrderWeb> webs = OrderWebMapper.INSTANCE.toWeb(find.findAll());
         log.info("after findAll: {}", webs);
         return webs;
     }
