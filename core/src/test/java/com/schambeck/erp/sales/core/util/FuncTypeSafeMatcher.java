@@ -8,13 +8,13 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 public class FuncTypeSafeMatcher<T> extends TypeSafeMatcher<T> {
-    Predicate<T> matchesSafely;
-    BiConsumer<T, Description> descibeMismatchSafely;
-    Consumer<Description> describeTo;
-    public FuncTypeSafeMatcher(Predicate<T> matchesSafely, Consumer<Description> describeTo, BiConsumer<T, Description> descibeMismatchSafely) {
+    private final Predicate<T> matchesSafely;
+    private final BiConsumer<T, Description> describeMismatchSafely;
+    private final Consumer<Description> describeTo;
+    public FuncTypeSafeMatcher(Predicate<T> matchesSafely, Consumer<Description> describeTo, BiConsumer<T, Description> describeMismatchSafely) {
         this.matchesSafely = matchesSafely;
         this.describeTo = describeTo;
-        this.descibeMismatchSafely = descibeMismatchSafely;
+        this.describeMismatchSafely = describeMismatchSafely;
     }
 
     @Override
@@ -29,6 +29,6 @@ public class FuncTypeSafeMatcher<T> extends TypeSafeMatcher<T> {
 
     @Override
     protected void describeMismatchSafely(T item, Description description) {
-        descibeMismatchSafely.accept(item, description);
+        describeMismatchSafely.accept(item, description);
     }
 }
