@@ -20,11 +20,3 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.amqp:spring-rabbit-test'
 }
-
-sonarqube {
-    properties {
-        property "sonar.projectKey", "schambeck_srv-erp-sales"
-        property "sonar.organization", "schambeck"
-        property "sonar.host.url", "https://sonarcloud.io"
-    }
-}

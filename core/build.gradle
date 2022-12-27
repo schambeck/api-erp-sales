@@ -10,11 +10,3 @@ dependencies {
     implementation 'ch.qos.logback:logback-classic:1.4.5'
     implementation 'org.slf4j:slf4j-api:2.0.5'
 }
-
-sonarqube {
-    properties {
-        property "sonar.projectKey", "schambeck_srv-erp-sales"
-        property "sonar.organization", "schambeck"
-        property "sonar.host.url", "https://sonarcloud.io"
-    }
-}
