@@ -2,6 +2,7 @@ package com.schambeck.erp.sales.app.dataprovider.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -14,6 +15,7 @@ import static javax.persistence.CascadeType.ALL;
 @Setter
 @Entity
 @Table(name = "ORDER")
+@ToString(exclude = "items")
 public class OrderEntity {
     public OrderEntity() {
     }
@@ -64,13 +66,4 @@ public class OrderEntity {
         return Objects.hash(id);
     }
 
-    @Override
-    public String toString() {
-        return "OrderEntity{" +
-                "id=" + id +
-                ", clientId=" + clientId +
-                ", status=" + status +
-                ", totalCost=" + totalCost +
-                '}';
-    }
 }
