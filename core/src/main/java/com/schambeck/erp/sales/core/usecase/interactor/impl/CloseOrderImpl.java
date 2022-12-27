@@ -2,6 +2,7 @@ package com.schambeck.erp.sales.core.usecase.interactor.impl;
 
 import com.schambeck.erp.sales.core.dataprovider.OrderRepository;
 import com.schambeck.erp.sales.core.entity.Order;
+import com.schambeck.erp.sales.core.usecase.exception.BusinessException;
 import com.schambeck.erp.sales.core.usecase.exception.NotFoundException;
 import com.schambeck.erp.sales.core.usecase.interactor.CloseOrder;
 import lombok.RequiredArgsConstructor;
@@ -27,13 +28,13 @@ class CloseOrderImpl implements CloseOrder {
 
     private static void validateStatus(Order order) {
         if (order.getStatus() == CLOSED) {
-            throw new RuntimeException("Order already closed: %s".formatted(order.getId()));
+            throw new BusinessException("Order already closed: %s".formatted(order.getId()));
         }
     }
 
     private void validateItems(Order order) {
         if (order.getItems().isEmpty()) {
-            throw new RuntimeException("Order has no items: %s".formatted(order.getId()));
+            throw new BusinessException("Order has no items: %s".formatted(order.getId()));
         }
     }
 }

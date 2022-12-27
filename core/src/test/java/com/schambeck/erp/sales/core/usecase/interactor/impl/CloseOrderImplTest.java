@@ -3,6 +3,7 @@ package com.schambeck.erp.sales.core.usecase.interactor.impl;
 import com.schambeck.erp.sales.core.dataprovider.OrderRepository;
 import com.schambeck.erp.sales.core.entity.Order;
 import com.schambeck.erp.sales.core.entity.OrderLine;
+import com.schambeck.erp.sales.core.usecase.exception.BusinessException;
 import com.schambeck.erp.sales.core.usecase.exception.NotFoundException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -68,7 +69,7 @@ class CloseOrderImplTest {
         Order closedOrder = Order.builder().id(orderId).clientId(clientId).status(CLOSED).build();
         when(repository.findById(orderId)).thenReturn(Optional.of(closedOrder));
 
-        RuntimeException exception = assertThrows(RuntimeException.class, () -> closeOrder.execute(orderId));
+        BusinessException exception = assertThrows(BusinessException.class, () -> closeOrder.execute(orderId));
 
         assertEquals("Order already closed: %s".formatted(orderId), exception.getMessage());
         verify(repository).findById(orderId);
@@ -82,7 +83,7 @@ class CloseOrderImplTest {
         Order createdOrder = Order.builder().id(orderId).clientId(clientId).status(CREATED).build();
         when(repository.findById(orderId)).thenReturn(Optional.of(createdOrder));
 
-        RuntimeException exception = assertThrows(RuntimeException.class, () -> closeOrder.execute(orderId));
+        BusinessException exception = assertThrows(BusinessException.class, () -> closeOrder.execute(orderId));
 
         assertEquals("Order has no items: %s".formatted(orderId), exception.getMessage());
         verify(repository).findById(orderId);
