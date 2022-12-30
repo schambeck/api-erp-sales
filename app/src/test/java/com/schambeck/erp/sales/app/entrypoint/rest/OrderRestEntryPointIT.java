@@ -1,5 +1,6 @@
 package com.schambeck.erp.sales.app.entrypoint.rest;
 
+import com.schambeck.erp.sales.app.config.RabbitTestConfiguration;
 import com.schambeck.erp.sales.app.entrypoint.controller.model.OrderLineWeb;
 import com.schambeck.erp.sales.app.entrypoint.controller.model.OrderWeb;
 import io.restassured.RestAssured;
@@ -9,6 +10,7 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.context.annotation.Import;
 
 import java.math.BigDecimal;
 import java.util.UUID;
@@ -19,6 +21,7 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
+@Import(RabbitTestConfiguration.class)
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 class OrderRestEntryPointIT {
     @LocalServerPort

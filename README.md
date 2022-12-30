@@ -11,7 +11,7 @@
 - RabbitMQ
 - JUnit 5, Mockito, JaCoCo
 
-### Start infra (PostgreSQL)
+### Start infra (PostgreSQL and RabbitMQ)
 
     docker-compose up -d
 
@@ -22,3 +22,9 @@
 ### Run backend
 
     java -jar app/build/libs/srv-erp-sales-app-1.0.0.jar
+
+### RabbitMQ Web Interface
+
+    http://localhost:15672
+    User: guest
+    Pass: guest

@@ -1,5 +1,6 @@
 package com.schambeck.erp.sales.core.usecase.interactor.impl;
 
+import com.schambeck.erp.sales.core.dataprovider.OrderNotifier;
 import com.schambeck.erp.sales.core.dataprovider.OrderRepository;
 import com.schambeck.erp.sales.core.entity.Order;
 import com.schambeck.erp.sales.core.entity.OrderLine;
@@ -27,6 +28,8 @@ class CloseOrderImplTest {
     CloseOrderImpl closeOrder;
     @Mock
     OrderRepository repository;
+    @Mock
+    OrderNotifier notifier;
     @Test
     void close_ValidId_ShouldPass() {
         UUID orderId = UUID.fromString("dd9c24cc-b336-4f25-95de-bfd2ce7520fc");
@@ -43,11 +46,13 @@ class CloseOrderImplTest {
                 .build();
         when(repository.findById(orderId)).thenReturn(Optional.of(createdOrder));
         doNothing().when(repository).updateStatus(orderId, CLOSED);
+        doNothing().when(notifier).sendMessage(createdOrder);
 
         closeOrder.execute(orderId);
 
         verify(repository).findById(orderId);
         verify(repository).updateStatus(orderId, CLOSED);
+        verify(notifier).sendMessage(createdOrder);
     }
 
     @Test
@@ -60,6 +65,7 @@ class CloseOrderImplTest {
         assertEquals("Entity %s not found".formatted(orderId), exception.getMessage());
         verify(repository).findById(orderId);
         verifyNoMoreInteractions(repository);
+        verifyNoMoreInteractions(notifier);
     }
 
     @Test
@@ -74,6 +80,7 @@ class CloseOrderImplTest {
         assertEquals("Order already closed: %s".formatted(orderId), exception.getMessage());
         verify(repository).findById(orderId);
         verifyNoMoreInteractions(repository);
+        verifyNoMoreInteractions(notifier);
     }
 
     @Test
@@ -88,5 +95,6 @@ class CloseOrderImplTest {
         assertEquals("Order has no items: %s".formatted(orderId), exception.getMessage());
         verify(repository).findById(orderId);
         verifyNoMoreInteractions(repository);
+        verifyNoMoreInteractions(notifier);
     }
 }

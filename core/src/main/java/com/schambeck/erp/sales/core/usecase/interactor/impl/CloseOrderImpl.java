@@ -1,5 +1,6 @@
 package com.schambeck.erp.sales.core.usecase.interactor.impl;
 
+import com.schambeck.erp.sales.core.dataprovider.OrderNotifier;
 import com.schambeck.erp.sales.core.dataprovider.OrderRepository;
 import com.schambeck.erp.sales.core.entity.Order;
 import com.schambeck.erp.sales.core.usecase.exception.BusinessException;
@@ -16,6 +17,7 @@ import static com.schambeck.erp.sales.core.entity.vo.StatusOrder.CLOSED;
 @RequiredArgsConstructor
 class CloseOrderImpl implements CloseOrder {
     private final OrderRepository repository;
+    private final OrderNotifier notifier;
 
     @Override
     public void execute(UUID id) {
@@ -24,6 +26,7 @@ class CloseOrderImpl implements CloseOrder {
         validateStatus(order);
         validateItems(order);
         repository.updateStatus(id, CLOSED);
+        notifier.sendMessage(order);
     }
 
     private static void validateStatus(Order order) {
