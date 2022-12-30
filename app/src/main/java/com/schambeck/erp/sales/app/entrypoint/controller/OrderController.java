@@ -39,9 +39,8 @@ public class OrderController {
     }
 
     public List<OrderWeb> findAll() {
-        log.info("before findAll...");
         List<OrderWeb> webs = OrderWebMapper.INSTANCE.toWeb(find.findAll());
-        log.info("after findAll: {}", webs);
+        log.info("findAll: {}", webs);
         return webs;
     }
 }
