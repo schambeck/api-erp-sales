@@ -1,5 +1,6 @@
 # srv-erp-sales
 [![build](https://github.com/schambeck/srv-erp-sales/actions/workflows/gradle.yml/badge.svg)](https://github.com/schambeck/srv-erp-sales/actions/workflows/gradle.yml)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=schambeck_srv-erp-sales&metric=coverage)](https://sonarcloud.io/summary/new_code?id=schambeck_srv-erp-sales)
 
 ## ERP Sales API
 
