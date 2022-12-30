@@ -23,7 +23,7 @@ class CloseOrderImpl implements CloseOrder {
                 .orElseThrow(() -> new NotFoundException("Entity %s not found".formatted(id)));
         validateStatus(order);
         validateItems(order);
-        repository.close(id);
+        repository.updateStatus(id, CLOSED);
     }
 
     private static void validateStatus(Order order) {

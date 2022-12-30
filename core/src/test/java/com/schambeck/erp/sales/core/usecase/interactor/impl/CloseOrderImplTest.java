@@ -42,12 +42,12 @@ class CloseOrderImplTest {
                         .build())
                 .build();
         when(repository.findById(orderId)).thenReturn(Optional.of(createdOrder));
-        doNothing().when(repository).close(orderId);
+        doNothing().when(repository).updateStatus(orderId, CLOSED);
 
         closeOrder.execute(orderId);
 
         verify(repository).findById(orderId);
-        verify(repository).close(orderId);
+        verify(repository).updateStatus(orderId, CLOSED);
     }
 
     @Test
@@ -59,7 +59,7 @@ class CloseOrderImplTest {
 
         assertEquals("Entity %s not found".formatted(orderId), exception.getMessage());
         verify(repository).findById(orderId);
-        verify(repository, never()).close(orderId);
+        verifyNoMoreInteractions(repository);
     }
 
     @Test
@@ -73,7 +73,7 @@ class CloseOrderImplTest {
 
         assertEquals("Order already closed: %s".formatted(orderId), exception.getMessage());
         verify(repository).findById(orderId);
-        verify(repository, never()).close(orderId);
+        verifyNoMoreInteractions(repository);
     }
 
     @Test
@@ -87,6 +87,6 @@ class CloseOrderImplTest {
 
         assertEquals("Order has no items: %s".formatted(orderId), exception.getMessage());
         verify(repository).findById(orderId);
-        verify(repository, never()).close(orderId);
+        verifyNoMoreInteractions(repository);
     }
 }

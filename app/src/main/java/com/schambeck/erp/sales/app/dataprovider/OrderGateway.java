@@ -4,6 +4,7 @@ import com.schambeck.erp.sales.app.dataprovider.entity.OrderEntity;
 import com.schambeck.erp.sales.app.dataprovider.mapper.OrderMapper;
 import com.schambeck.erp.sales.core.dataprovider.OrderRepository;
 import com.schambeck.erp.sales.core.entity.Order;
+import com.schambeck.erp.sales.core.entity.vo.StatusOrder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +22,7 @@ public class OrderGateway implements OrderRepository {
 
 	@Override
 	@Transactional
-	public void close(UUID id) {
+	public void updateStatus(UUID id, StatusOrder status) {
 		jpaRepository.updateStatus(id, CLOSED);
 	}
 
