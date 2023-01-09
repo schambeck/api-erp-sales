@@ -13,6 +13,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OrderLineWeb {
+    private UUID id;
     @NotNull(message = "Product is required")
     private UUID productId;
     @NotNull(message = "Quantity is required")

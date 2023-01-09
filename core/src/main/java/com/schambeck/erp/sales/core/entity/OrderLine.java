@@ -13,6 +13,7 @@ import java.util.UUID;
 @Data
 @Builder(toBuilder = true)
 public class OrderLine implements Serializable {
+    private UUID id;
     @NotNull(message = "Product is required")
     private UUID productId;
     @NotNull(message = "Quantity is required")
