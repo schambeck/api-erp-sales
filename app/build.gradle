@@ -23,5 +23,5 @@ dependencies {
 }
 
 bootJar {
-    archiveFileName = "srv-erp-${rootProject.name}-${archiveBaseName.get()}-${archiveVersion.get()}.${archiveExtension.get()}"
+    archiveFileName = "api-erp-${rootProject.name}-${archiveBaseName.get()}-${archiveVersion.get()}.${archiveExtension.get()}"
 }
