@@ -13,11 +13,13 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Optional;
 import java.util.UUID;
 
 import static com.schambeck.erp.sales.core.entity.vo.StatusOrder.CLOSED;
 import static com.schambeck.erp.sales.core.entity.vo.StatusOrder.CREATED;
+import static java.time.Month.JANUARY;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
@@ -37,6 +39,7 @@ class CloseOrderImplTest {
         Order createdOrder = Order.builder()
                 .id(orderId)
                 .clientId(clientId)
+                .issuedDate(LocalDate.of(2023, JANUARY, 19))
                 .status(CREATED)
                 .item(OrderLine.builder()
                         .productId(UUID.fromString("c90e4992-3e48-43ca-9da3-7ca012f44236"))
@@ -72,7 +75,7 @@ class CloseOrderImplTest {
     void close_ClosedStatus_ShouldFail() {
         UUID orderId = UUID.fromString("dd9c24cc-b336-4f25-95de-bfd2ce7520fc");
         UUID clientId = UUID.fromString("89fc02d7-af79-473a-a792-ce4d6c188527");
-        Order closedOrder = Order.builder().id(orderId).clientId(clientId).status(CLOSED).build();
+        Order closedOrder = Order.builder().id(orderId).clientId(clientId).issuedDate(LocalDate.of(2023, JANUARY, 19)).status(CLOSED).build();
         when(repository.findById(orderId)).thenReturn(Optional.of(closedOrder));
 
         BusinessException exception = assertThrows(BusinessException.class, () -> closeOrder.execute(orderId));
@@ -87,7 +90,7 @@ class CloseOrderImplTest {
     void close_NoItems_ShouldFail() {
         UUID orderId = UUID.fromString("dd9c24cc-b336-4f25-95de-bfd2ce7520fc");
         UUID clientId = UUID.fromString("89fc02d7-af79-473a-a792-ce4d6c188527");
-        Order createdOrder = Order.builder().id(orderId).clientId(clientId).status(CREATED).build();
+        Order createdOrder = Order.builder().id(orderId).clientId(clientId).issuedDate(LocalDate.of(2023, JANUARY, 19)).status(CREATED).build();
         when(repository.findById(orderId)).thenReturn(Optional.of(createdOrder));
 
         BusinessException exception = assertThrows(BusinessException.class, () -> closeOrder.execute(orderId));

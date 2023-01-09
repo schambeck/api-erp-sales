@@ -8,10 +8,12 @@ import com.schambeck.erp.sales.core.entity.vo.StatusOrder;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
 import static com.schambeck.erp.sales.app.dataprovider.entity.StatusOrder.CLOSED;
+import static java.time.Month.JANUARY;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
@@ -20,6 +22,7 @@ class OrderWebMapperTest {
     void toDomain_ClosedStatus_ShouldPass() {
         OrderWeb web = OrderWeb.builder()
                 .clientId(UUID.fromString("d10f7108-ed25-4c77-adf0-a172492a5922"))
+                .issuedDate(LocalDate.of(2023, JANUARY, 19))
                 .status(CLOSED)
                 .build();
         Order order = OrderWebMapper.INSTANCE.toDomain(web);
@@ -36,6 +39,7 @@ class OrderWebMapperTest {
     void toWeb_ClosedStatus_ShouldPass() {
         Order domain = Order.builder()
                 .clientId(UUID.fromString("d10f7108-ed25-4c77-adf0-a172492a5922"))
+                .issuedDate(LocalDate.of(2023, JANUARY, 19))
                 .status(StatusOrder.CLOSED)
                 .build();
         OrderWeb order = OrderWebMapper.INSTANCE.toWeb(domain);
@@ -52,6 +56,7 @@ class OrderWebMapperTest {
     void toWeb_NullStatus_ShouldPass() {
         Order domain = Order.builder()
                 .clientId(UUID.fromString("d10f7108-ed25-4c77-adf0-a172492a5922"))
+                .issuedDate(LocalDate.of(2023, JANUARY, 19))
                 .build();
         OrderWeb order = OrderWebMapper.INSTANCE.toWeb(domain);
         assertNull(order.getStatus());

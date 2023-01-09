@@ -5,10 +5,12 @@ import org.junit.jupiter.api.Test;
 
 import javax.validation.ConstraintViolationException;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.UUID;
 
 import static com.schambeck.erp.sales.core.entity.vo.StatusOrder.CREATED;
 import static com.schambeck.erp.sales.core.util.MessageConstraintViolationMatcher.messageIs;
+import static java.time.Month.JANUARY;
 import static nl.jqno.equalsverifier.Warning.ALL_FIELDS_SHOULD_BE_USED;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasItem;
@@ -39,6 +41,7 @@ class OrderTest {
         Order.OrderBuilder createdOrder = Order.builder()
                 .id(UUID.fromString("dd9c24cc-b336-4f25-95de-bfd2ce7520fc"))
                 .clientId(UUID.fromString("89fc02d7-af79-473a-a792-ce4d6c188527"))
+                .issuedDate(LocalDate.of(2023, JANUARY, 19))
                 .status(CREATED)
                 .item(OrderLine.builder()
                         .productId(UUID.fromString("c90e4992-3e48-43ca-9da3-7ca012f44236"))
@@ -61,6 +64,7 @@ class OrderTest {
         Order.OrderBuilder createdOrder = Order.builder()
                 .id(UUID.fromString("dd9c24cc-b336-4f25-95de-bfd2ce7520fc"))
                 .clientId(UUID.fromString("89fc02d7-af79-473a-a792-ce4d6c188527"))
+                .issuedDate(LocalDate.of(2023, JANUARY, 19))
                 .status(CREATED)
                 .item(OrderLine.builder()
                         .productId(UUID.fromString("c90e4992-3e48-43ca-9da3-7ca012f44236"))

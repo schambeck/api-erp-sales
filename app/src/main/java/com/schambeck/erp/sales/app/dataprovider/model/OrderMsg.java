@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -19,6 +20,8 @@ public class OrderMsg {
     private UUID id;
     @NotNull(message = "Client is required")
     private UUID clientId;
+    @NotNull(message = "Issued date is required")
+    private LocalDate issuedDate;
     private StatusOrder status;
     private BigDecimal totalCost;
     @Singular

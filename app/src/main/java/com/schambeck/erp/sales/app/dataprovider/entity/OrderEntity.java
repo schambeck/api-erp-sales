@@ -7,6 +7,7 @@ import lombok.ToString;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.*;
 
 import static javax.persistence.CascadeType.ALL;
@@ -31,6 +32,9 @@ public class OrderEntity {
     @Column(name = "CLIENT_ID")
     @NotNull(message = "Client is required")
     private UUID clientId;
+    @Column(name = "ISSUED_DATE")
+    @NotNull(message = "Issued date is required")
+    private LocalDate issuedDate;
     @Column(name = "STATUS")
     @NotNull(message = "Status is required")
     private StatusOrder status;

@@ -10,11 +10,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 import static com.schambeck.erp.sales.core.entity.vo.StatusOrder.CREATED;
+import static java.time.Month.JANUARY;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -29,7 +31,7 @@ class FindOrderImplTest {
     void findBy_ValidId_ShouldPass() {
         UUID orderId = UUID.fromString("dd9c24cc-b336-4f25-95de-bfd2ce7520fc");
         UUID clientId = UUID.fromString("89fc02d7-af79-473a-a792-ce4d6c188527");
-        Order foundOrder = Order.builder().id(orderId).clientId(clientId).status(CREATED).build();
+        Order foundOrder = Order.builder().id(orderId).clientId(clientId).issuedDate(LocalDate.of(2023, JANUARY, 19)).status(CREATED).build();
         when(repository.findById(orderId)).thenReturn(Optional.of(foundOrder));
 
         Order found = findOrder.findById(orderId);
@@ -54,7 +56,7 @@ class FindOrderImplTest {
     void findAll_ValidOrders_ShouldPass() {
         UUID orderId = UUID.fromString("dd9c24cc-b336-4f25-95de-bfd2ce7520fc");
         UUID clientId = UUID.fromString("89fc02d7-af79-473a-a792-ce4d6c188527");
-        Order foundOrder = Order.builder().id(orderId).clientId(clientId).status(CREATED).build();
+        Order foundOrder = Order.builder().id(orderId).clientId(clientId).issuedDate(LocalDate.of(2023, JANUARY, 19)).status(CREATED).build();
         when(repository.findAll()).thenReturn(List.of(foundOrder));
 
         List<Order> ordersFound = findOrder.findAll();

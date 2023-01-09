@@ -3,10 +3,11 @@ SET SCHEMA 'sales';
 
 CREATE TABLE IF NOT EXISTS "ORDER"
 (
-    id         UUID PRIMARY KEY,
-    client_id  UUID           NOT NULL,
-    status     VARCHAR(10)    NOT NULL,
-    total_cost NUMERIC(12, 2) NOT NULL
+    id          UUID PRIMARY KEY,
+    client_id   UUID           NOT NULL,
+    issued_date DATE           NOT NULL,
+    status      VARCHAR(10)    NOT NULL,
+    total_cost  NUMERIC(12, 2) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS ORDER_LINE

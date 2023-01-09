@@ -13,10 +13,12 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.context.annotation.Import;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.UUID;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.http.ContentType.JSON;
+import static java.time.Month.JANUARY;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
@@ -37,6 +39,7 @@ class OrderRestEntryPointIT {
     void create() {
         OrderWeb payload = OrderWeb.builder()
                 .clientId(UUID.fromString("1750a631-3461-442e-8d99-8f0d6a127cb3"))
+                .issuedDate(LocalDate.of(2023, JANUARY, 19))
                 .item(OrderLineWeb.builder()
                         .productId(UUID.fromString("c90e4992-3e48-43ca-9da3-7ca012f44236"))
                         .quantity(new BigDecimal("3.00"))
@@ -71,6 +74,7 @@ class OrderRestEntryPointIT {
     void findById() {
         OrderWeb payload = OrderWeb.builder()
                 .clientId(UUID.fromString("1750a631-3461-442e-8d99-8f0d6a127cb3"))
+                .issuedDate(LocalDate.of(2023, JANUARY, 19))
                 .build();
         Response response =
         given().
@@ -95,6 +99,7 @@ class OrderRestEntryPointIT {
     void close() {
         OrderWeb payload = OrderWeb.builder()
                 .clientId(UUID.fromString("1750a631-3461-442e-8d99-8f0d6a127cb3"))
+                .issuedDate(LocalDate.of(2023, JANUARY, 19))
                 .item(OrderLineWeb.builder()
                         .productId(UUID.fromString("c90e4992-3e48-43ca-9da3-7ca012f44236"))
                         .quantity(new BigDecimal("3.00"))

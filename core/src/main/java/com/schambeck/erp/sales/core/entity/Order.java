@@ -7,6 +7,7 @@ import javax.validation.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.*;
 
 import static java.math.BigDecimal.ZERO;
@@ -21,6 +22,8 @@ public class Order implements Serializable {
     private UUID id;
     @NotNull(message = "Client is required")
     private UUID clientId;
+    @NotNull(message = "Issued date is required")
+    private LocalDate issuedDate;
     private StatusOrder status;
     private BigDecimal totalCost;
     @Singular
