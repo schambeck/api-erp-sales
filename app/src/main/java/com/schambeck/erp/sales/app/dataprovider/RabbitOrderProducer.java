@@ -24,7 +24,7 @@ class RabbitOrderProducer implements OrderNotifier {
     @Transactional
     public void sendMessage(Order order) {
         OrderMsg msg = OrderMsgMapper.INSTANCE.toMsg(order);
-        log.info("Sending {}", msg);
+        log.info("send: {}", msg);
         template.convertAndSend(orderExchange, orderRoutingKey, msg);
     }
 }
