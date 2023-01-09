@@ -12,7 +12,8 @@ import javax.inject.Named;
 @RequiredArgsConstructor
 class ConsumeOrderImpl implements ConsumeOrder {
     @Override
-    public void execute(Order order) {
+    public Order execute(Order order) {
         log.info("received: {}", order);
+        return order;
     }
 }

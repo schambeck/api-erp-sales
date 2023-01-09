@@ -11,6 +11,7 @@ import java.util.UUID;
 
 import static com.schambeck.erp.sales.core.entity.vo.StatusOrder.CREATED;
 import static java.time.Month.JANUARY;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @ExtendWith(MockitoExtension.class)
 class ConsumeOrderImplTest {
@@ -23,6 +24,7 @@ class ConsumeOrderImplTest {
         UUID clientId = UUID.fromString("89fc02d7-af79-473a-a792-ce4d6c188527");
         Order createdOrder = Order.builder().id(orderId).clientId(clientId).issuedDate(LocalDate.of(2023, JANUARY, 19)).status(CREATED).build();
 
-        consumeOrder.execute(createdOrder);
+        Order consumed = consumeOrder.execute(createdOrder);
+        assertNotNull(consumed);
     }
 }

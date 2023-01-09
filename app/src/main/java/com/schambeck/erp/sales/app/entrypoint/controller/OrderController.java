@@ -47,8 +47,8 @@ public class OrderController {
         return webs;
     }
 
-    public void consume(Order order) {
-        consume.execute(order);
+    public Order consume(Order order) {
         log.info("consume: {}", order);
+        return consume.execute(order);
     }
 }

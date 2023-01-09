@@ -18,6 +18,7 @@ class OrderConsumer {
     public void receiveMessage(OrderMsg msg) {
         log.info("received: {}", msg);
         Order order = OrderMsgMapper.INSTANCE.toDomain(msg);
-        controller.consume(order);
+        Order consumed = controller.consume(order);
+        log.info("consumed: {}", consumed);
     }
 }

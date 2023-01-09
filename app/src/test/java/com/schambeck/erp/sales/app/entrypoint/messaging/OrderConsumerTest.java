@@ -18,8 +18,7 @@ import java.util.UUID;
 
 import static com.schambeck.erp.sales.core.entity.vo.StatusOrder.CLOSED;
 import static java.time.Month.JANUARY;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class OrderConsumerTest {
@@ -31,7 +30,7 @@ class OrderConsumerTest {
     @Test
     void receive_ValidOrder_ShouldPass() {
         Order closedOrder = createClosedOrder();
-        doNothing().when(controller).consume(closedOrder);
+        when(controller.consume(closedOrder)).thenReturn(closedOrder);
 
         OrderMsg closedOrderMsg = createClosedOrderMsg();
         orderConsumer.receiveMessage(closedOrderMsg);

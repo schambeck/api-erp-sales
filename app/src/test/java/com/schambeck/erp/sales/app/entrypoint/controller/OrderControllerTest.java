@@ -15,8 +15,8 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 import static java.time.Month.JANUARY;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.verify;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class OrderControllerTest {
@@ -28,10 +28,11 @@ class OrderControllerTest {
     @Test
     void consume_ValidOrder_ShouldPass() {
         Order closedOrder = createClosedOrder();
-        doNothing().when(consume).execute(closedOrder);
+        when(consume.execute(closedOrder)).thenReturn(closedOrder);
 
-        controller.consume(closedOrder);
+        Order consumed = controller.consume(closedOrder);
 
+        assertNotNull(consumed);
         verify(consume).execute(closedOrder);
     }
 
