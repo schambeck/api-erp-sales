@@ -14,11 +14,12 @@ import static java.math.BigDecimal.ZERO;
 
 @Getter
 @Setter
-@ToString
+@ToString(onlyExplicitlyIncluded = true)
 @Builder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
 public class Order implements Serializable {
+    @ToString.Include
     private UUID id;
     @NotNull(message = "Client is required")
     private UUID clientId;

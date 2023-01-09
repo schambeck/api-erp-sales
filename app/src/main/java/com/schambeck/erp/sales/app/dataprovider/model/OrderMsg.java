@@ -13,10 +13,11 @@ import java.util.UUID;
 @Getter
 @Setter
 @Builder(toBuilder = true)
-@ToString
+@ToString(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
 @AllArgsConstructor
 public class OrderMsg {
+    @ToString.Include
     private UUID id;
     @NotNull(message = "Client is required")
     private UUID clientId;
