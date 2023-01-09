@@ -2,7 +2,9 @@ package com.schambeck.erp.sales.app.entrypoint.controller;
 
 import com.schambeck.erp.sales.app.entrypoint.controller.mapper.OrderWebMapper;
 import com.schambeck.erp.sales.app.entrypoint.controller.model.OrderWeb;
+import com.schambeck.erp.sales.core.entity.Order;
 import com.schambeck.erp.sales.core.usecase.interactor.CloseOrder;
+import com.schambeck.erp.sales.core.usecase.interactor.ConsumeOrder;
 import com.schambeck.erp.sales.core.usecase.interactor.CreateOrder;
 import com.schambeck.erp.sales.core.usecase.interactor.FindOrder;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +21,7 @@ public class OrderController {
     private final CreateOrder create;
     private final CloseOrder close;
     private final FindOrder find;
+    private final ConsumeOrder consume;
 
     public OrderWeb create(OrderWeb web) {
         var order = OrderWebMapper.INSTANCE.toDomain(web);
@@ -42,5 +45,10 @@ public class OrderController {
         List<OrderWeb> webs = OrderWebMapper.INSTANCE.toWeb(find.findAll());
         log.info("findAll: {}", webs);
         return webs;
+    }
+
+    public void consume(Order order) {
+        consume.execute(order);
+        log.info("consume: {}", order);
     }
 }

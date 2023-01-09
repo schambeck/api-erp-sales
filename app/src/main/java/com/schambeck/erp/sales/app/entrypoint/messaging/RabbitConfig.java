@@ -55,12 +55,12 @@ class RabbitConfig {
     }
 
     @Bean
-    TopicExchange orderExchange() {
-        return new TopicExchange(orderExchangeName);
+    DirectExchange orderExchange() {
+        return new DirectExchange(orderExchangeName);
     }
 
     @Bean
-    Binding orderBinding(Queue orderQueue, TopicExchange orderExchange) {
+    Binding orderBinding(Queue orderQueue, DirectExchange orderExchange) {
         return BindingBuilder.bind(orderQueue).to(orderExchange).with(orderRoutingKey);
     }
 
